@@ -40,10 +40,14 @@ void setup() {
 
 void loop() {
 
+  //Only begins Keyboard if grounded
+  //Keyboard functions only run within loop
+  //Must be LOW to be able to program the stand alone board
   if(digitalRead(KBSWITCH) == LOW){
     Keyboard.begin();
   }
 
+  //Keyboard input mode
   while(digitalRead(KBSWITCH) == LOW){
     digitalWrite(ACTIVE, HIGH);
     if(digitalRead(ZBUTTON) == LOW && zflag == 0){
@@ -121,35 +125,42 @@ void loop() {
 
   digitalWrite(ACTIVE, LOW);
 
+  //Releases keys if buttons are pressed while mode is switched
+  if(xflag == 1 || zflag == 1 || laflag == 1 || daflag == 1 || raflag == 1 || uaflag == 1 || escflag == 1 || entflag == 1){
+    Keyboard.releaseAll();
+  }
+
+  //Temporary LED flashing
   if(kbmode == 0){
-    delay(20);
+    delay(16);
     digitalWrite(ACTIVE, HIGH);
     analogWrite(ZLED, 150);
     analogWrite(XLED, 150);
-    delay(20);
+    delay(13);
     digitalWrite(ACTIVE, LOW);
     analogWrite(ZLED, 0);
     analogWrite(XLED, 0);
-    delay(20);
+    delay(16);
     digitalWrite(ACTIVE, HIGH);
     analogWrite(ZLED, 150);
     analogWrite(XLED, 150);
-    delay(20);
+    delay(13);
     digitalWrite(ACTIVE, LOW);
     analogWrite(ZLED, 0);
     analogWrite(XLED, 0);
-    delay(20);
+    delay(16);
     digitalWrite(ACTIVE, HIGH);
     analogWrite(ZLED, 150);
     analogWrite(XLED, 150);
-    delay(20);
+    delay(13);
     digitalWrite(ACTIVE, LOW);
     analogWrite(ZLED, 0);
     analogWrite(XLED, 0);
-    delay(20);
+    delay(16);
     kbmode = 1;
   }
 
+  //Debug serial & button flashing
   if(digitalRead(ZBUTTON) == LOW && zdeb == 0){
     digitalWrite(ACTIVE, HIGH);
     Serial.println("Z button pressed.");
