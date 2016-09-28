@@ -13,11 +13,14 @@
 #define RABUTTON 14
 #define DABUTTON 15
 #define ACTIVE 16
+#define TRUE 1
+#define FALSE 0
 
 //Variable Declarations
 int zflag, xflag, laflag, daflag, raflag, uaflag, entflag, escflag = 0;
 int zdeb, xdeb, ladeb, dadeb, radeb, uadeb, entdeb, escdeb = 0;
-//int kbmode = 0;
+//Software to be implemented
+int HWDebounce = TRUE; //Set HWDebounce to true if hardware based debounce is implemented otherwise false
 
 void setup() {
 
@@ -146,7 +149,6 @@ void loop() {
       Keyboard.release(0xB1);
       escflag = 0;
     }
-    //kbmode = 0;
   }
 
   Keyboard.end();
@@ -158,38 +160,6 @@ void loop() {
     xflag = zflag = laflag = daflag = raflag = uaflag = escflag = entflag = 0;
     Keyboard.releaseAll();
   }
-
-  //Temporary LED flashing
-  /*if(kbmode == 0){
-    delay(16);
-    digitalWrite(ACTIVE, HIGH);
-    analogWrite(ZLED, 100);
-    analogWrite(XLED, 100);
-    delay(13);
-    digitalWrite(ACTIVE, LOW);
-    analogWrite(ZLED, 0);
-    analogWrite(XLED, 0);
-    delay(16);
-    digitalWrite(ACTIVE, HIGH);
-    analogWrite(ZLED, 100);
-    analogWrite(XLED, 100);
-    delay(13);
-    digitalWrite(ACTIVE, LOW);
-    analogWrite(ZLED, 0);
-    analogWrite(XLED, 0);
-    delay(16);
-    digitalWrite(ACTIVE, HIGH);
-    analogWrite(ZLED, 100);
-    analogWrite(XLED, 100);
-    delay(13);
-    digitalWrite(ACTIVE, LOW);
-    analogWrite(ZLED, 0);
-    analogWrite(XLED, 0);
-    delay(16);
-    kbmode = 1;
-  }*/
-
-  //exit1:
 
   //Debug serial & button flashing
   if(digitalRead(ZBUTTON) == LOW && zdeb == 0){
